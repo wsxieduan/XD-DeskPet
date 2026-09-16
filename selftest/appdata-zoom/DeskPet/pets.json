@@ -1,0 +1,10 @@
+[
+  {
+    "id": "pet1",
+    "character": "nailong",
+    "x": 600,
+    "y": 463,
+    "scale": 1.234,
+    "pid": null
+  }
+]

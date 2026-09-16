@@ -1,0 +1,19 @@
+启动前 pet_running = False
+  第  1 秒: pet_running=True  pid=28208
+  第  2 秒: pet_running=True  pid=28208
+  第  3 秒: pet_running=True  pid=28208
+  第  4 秒: pet_running=True  pid=28208
+  第  5 秒: pet_running=True  pid=28208
+  第  6 秒: pet_running=True  pid=28208
+  第  7 秒: pet_running=True  pid=28208
+  第  8 秒: pet_running=True  pid=28208
+  第  9 秒: pet_running=True  pid=28208
+  第 10 秒: pet_running=True  pid=28208
+  第 11 秒: pet_running=True  pid=28208
+  第 12 秒: pet_running=True  pid=28208
+  第 13 秒: pet_running=True  pid=28208
+  第 14 秒: pet_running=True  pid=28208
+  第 15 秒: pet_running=True  pid=28208
+当前 python 进程:
+   28608 python.exe C:\Users\Lenovo\miniconda3\python.exe tools/test-petlife.py
+   28208 pythonw.exe "C:\Users\Lenovo\miniconda3\pythonw.exe" D:\dsh\deskpet\deskpet.py

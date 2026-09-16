@@ -1,0 +1,5 @@
+初始 autostart = False
+创建后 autostart = True
+快捷方式指向 = C:\Users\Lenovo\miniconda3\pythonw.exe || "D:\dsh\deskpet\petctl.pyw" --autostart
+检查通过 = True
+清理后 autostart = False

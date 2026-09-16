@@ -1,0 +1,18 @@
+隔离数据目录: D:\dsh\deskpet\selftest\appdata-firstrun\DeskPet
+  [OK]   数据目录是隔离的  D:\dsh\deskpet\selftest\appdata-firstrun\DeskPet
+形象下拉: ['奶龙', 'oc/view1', 'oc/view2', 'oc/view3', 'oc-backup/view1', 'oc-backup/view2', 'oc-backup/view3', 'placeholder', 'user/test-upload', 'user/xiaoduan-doubao', 'whale-girl']
+大小下拉: [('小', 0.7), ('中', 1.0), ('大', 1.4)]  当前=大
+  [OK]   内置形象显示成中文名「奶龙」  ['奶龙', 'oc/view1', 'oc/view2', 'oc/view3', 'oc-backup/view1', 'oc-backup/view2', 'oc-backup/view3', 'placeholder', 'user/test-upload', 'user/xiaoduan-doubao', 'whale-girl']
+  [OK]   内置形象在列表里  0
+  [OK]   默认大小是大号（内置形象帧只有 160 高）  1.4
+
+== 点「召唤一个桌宠」 ==
+pets.json: [{"id": "pet1", "character": "nailong", "x": 1387, "y": 432, "scale": 1.6, "pid": null}, {"id": "pet2", "character": "nailong", "x": 1207, "y": 472, "scale": 1.4, "pid": 24164, "createdAt": 1789467092}]
+  [OK]   召唤出来了（列表里多了一只）  2 只
+  [OK]   形象是内置的奶龙  nailong
+  [OK]   大小按默认值存下来了  1.4
+  [OK]   桌宠进程真的起来了  pets.json 里的 pid=24164
+桌宠窗口: [(336, 399)]
+  [OK]   窗口尺寸符合 1.4 倍（约 336 宽）  [(336, 399)]
+
+结果: 全部通过

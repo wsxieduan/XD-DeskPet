@@ -1,0 +1,108 @@
+{
+ "idle": {
+  "files": [
+   "idle-1.png",
+   "idle-2.png",
+   "idle-3.png",
+   "idle-4.png",
+   "idle-5.png",
+   "idle-6.png",
+   "idle-7.png",
+   "idle-8.png",
+   "idle-9.png",
+   "idle-10.png",
+   "idle-11.png",
+   "idle-12.png",
+   "idle-13.png",
+   "idle-14.png",
+   "idle-15.png",
+   "idle-16.png",
+   "idle-17.png",
+   "idle-18.png",
+   "idle-19.png",
+   "idle-20.png",
+   "idle-21.png",
+   "idle-22.png",
+   "idle-23.png",
+   "idle-24.png"
+  ],
+  "ms": [
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110,
+   110
+  ]
+ },
+ "jumping": {
+  "files": [
+   "jumping-1.png",
+   "jumping-2.png",
+   "jumping-3.png",
+   "jumping-4.png",
+   "jumping-5.png",
+   "jumping-6.png",
+   "jumping-7.png",
+   "jumping-8.png"
+  ],
+  "ms": [
+   70,
+   70,
+   70,
+   70,
+   70,
+   70,
+   70,
+   70
+  ]
+ },
+ "running": {
+  "files": [
+   "running-1.png",
+   "running-2.png",
+   "running-3.png",
+   "running-4.png",
+   "running-5.png",
+   "running-6.png",
+   "running-7.png",
+   "running-8.png",
+   "running-9.png",
+   "running-10.png",
+   "running-11.png",
+   "running-12.png"
+  ],
+  "ms": [
+   90,
+   90,
+   90,
+   90,
+   90,
+   90,
+   90,
+   90,
+   90,
+   90,
+   90,
+   90
+  ]
+ }
+}

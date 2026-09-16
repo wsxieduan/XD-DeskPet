@@ -1,0 +1,16 @@
+桌宠 pid = 24348  运行中 = True
+顶层窗口总数 = 382（EnumWindows 按 z 序从上到下）
+Progman 在 z 序中的位置 = 255
+桌宠窗口在 z 序中的位置 = 254 (hwnd=6359858)
+她的窗口矩形 = (0,510,317,1053) 可见=1
+Progman 的位次 - 她的位次 = 1
+判定: ✅ 她紧贴在 Progman 正上方 —— 桌面之上、其他所有窗口之下。点击能到她，窗口能盖住她。
+
+z 序里她附近的窗口（从她往上 6 个）：
+   [251] crashpad_SessionEndWatcher             隐藏
+   [252] Microsoft.IME.UIManager.CandidateWindo 隐藏
+   [253] NativeHWNDHost                         隐藏
+   [254] Qt6112QWindowIcon                      可见  <== 她
+   [255] Progman                                可见  <== Progman
+   [256] IME                                    隐藏
+   [257] MSCTFIME UI                            隐藏

@@ -1,0 +1,33 @@
+== 1. 观察 conhost（控制台宿主）数量变化 ==
+   petctl.pyw 正在运行，观察 5 秒：
+   起始 conhost 数 = 11
+   5 秒后 conhost 数 = 11
+   -> 没明显增长
+
+== 2. 确认 petctl 里哪个调用在制造控制台 ==
+   subprocess.run(["tasklist", "/FI", "PID eq " + str(pid)
+      >>> 没有 creationflags，会闪窗口 <<<
+   subprocess.Popen([str(PYW)
+      >>> 没有 creationflags，会闪窗口 <<<
+   subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(KILLER)
+      >>> 没有 creationflags，会闪窗口 <<<
+   subprocess.run(["powershell", "-NoProfile", "-Command", ps], capture_output=True, timeout=25)
+      >>> 没有 creationflags，会闪窗口 <<<
+   subprocess.Popen(["explorer", str(BASE)
+      >>> 没有 creationflags，会闪窗口 <<<
+
+== 3. 桌宠现在为什么不在运行 ==
+   当前 python 进程：
+   19356 pythonw.exe "C:\Users\Lenovo\miniconda3\pythonw.exe" D:\dsh\deskpet\petctl.pyw 
+22636 python.exe C:\Users\Lenovo\miniconda3\python.exe tools/diag-flash.py
+
+   前台启动桌宠，看它是否活着 / 会不会自己退出：
+     第 1 秒：进程存活
+     第 2 秒：进程存活
+     第 3 秒：进程存活
+     第 4 秒：进程存活
+     第 5 秒：进程存活
+     第 6 秒：进程存活
+
+   桌宠输出日志：
+     layer: hwnd=3278854 class=Qt6112QWindowIcon exstyle=0x8080080

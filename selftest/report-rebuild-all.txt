@@ -1,0 +1,21 @@
+AI 状态: True (可用（模型 isnet-anime）)
+本次方式: AI 智能抠图
+
+=== 1. 谢小端三视图 -> oc/view1..3 ===
+   抠图 4.4s，切出 3 个视图，诊断={'mode': 'ai', 'model': 'isnet-anime', 'resized': True, 'fringe': (0.35, 0.75), 'content': (1828, 1435), 'coverage': 0.4009644782287148}
+   view1 立绘 (549, 1435)  白边=0.004(带981) 画布 (123, 320)
+   view2 立绘 (450, 1402)  白边=0.017(带601) 画布 (102, 320)
+   view3 立绘 (525, 1415)  白边=0.009(带665) 画布 (118, 320)
+
+=== 2. 豆包那张 -> user/xiaoduan-doubao ===
+   抠图 3.5s，切出 3 个视图
+   用第 1 个：(570, 1481) 白边=0.011(带1091)
+   画布 (123, 320) 帧数 {'idle': 8, 'jumping': 7, 'running': 6}
+
+=== 3. 现在的形象列表 ===
+   oc/view1
+   oc/view2
+   oc/view3
+   user/pet-0914183048
+   user/xiaoduan-doubao
+   whale-girl

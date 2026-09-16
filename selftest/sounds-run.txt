@@ -1,0 +1,43 @@
+== 1. 内置音效 ==
+   内置: bell.wav, boing.wav, boop.wav, chirp.wav, pop.wav
+  [OK]   内置音效 >= 3 个  5 个
+  [OK]   都是单声道 16bit、时长 <= 1.5s（太长的会盖住上一条）  []
+
+== 2. 桌宠侧：绑定解析 / 随机池 / 回落 ==
+   click -> ['bell.wav']
+  [OK]   绑定的 click 解析到了 bell.wav  ['bell.wav']
+  [OK]   没绑的（grab）回落到内置 boop  ['boop.wav']
+音效(click): pop.wav
+音效(click): bell.wav
+音效(click): pop.wav
+音效(click): pop.wav
+音效(click): bell.wav
+音效(click): pop.wav
+音效(click): bell.wav
+音效(click): pop.wav
+音效(click): bell.wav
+音效(click): bell.wav
+音效(click): bell.wav
+音效(click): bell.wav
+   12 次随机结果: ['bell.wav', 'pop.wav']
+  [OK]   多绑时两类都出现过（随机池生效）  ['bell.wav', 'pop.wav']
+  [OK]   关掉音效后不出声  []
+音效(click): bell.wav
+  [OK]   开着音效时确实调用了系统播放  ['bell.wav']
+
+== 3. 控制台：上传 / 提示 / 清空 ==
+控制台 380x852（内容需要 864px，可用 912px）
+  [OK]   WAV 被复制进音效库  D:\dsh\deskpet\selftest\appdata-sounds\DeskPet\assets\sounds\myclick.wav
+  [OK]   绑定写进了 config  [{'click': ['sounds/bell.wav', 'sounds/pop.wav', 'sounds/myclick.wav'], 'grab': [], 'land': [], 'spawn': []}]
+  [OK]   非 WAV 有明确提示（不是静默吞掉）  ['这些不是 WAV，先跳过：\nmyclick.mp3\n\n原因：播放用的是系统自带的 winsound，它只认 WAV。先用任意工具转成 WAV 再传就行
+   控制台状态: click=3 个：bell、pop…
+  [OK]   控制台显示已绑数量  3 个：bell、pop…
+  [OK]   清空后 config 里这一类是空数组  [{'click': [], 'grab': [], 'land': [], 'spawn': []}]
+
+== 4. 端到端：真点一下桌宠，日志里要能看到播的是哪个音效 ==
+   日志里的音效行: ['音效(spawn): boop.wav', '音效(click): chirp.wav']
+  [OK]   点击触发了绑定音效 chirp.wav  ['音效(click): chirp.wav']
+  [OK]   出场音效也走了绑定/回落
+
+结果: 全部通过
+ok

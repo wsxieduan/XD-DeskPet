@@ -1,0 +1,29 @@
+{
+  "idle": [
+    "idle-1.png",
+    "idle-2.png",
+    "idle-3.png",
+    "idle-4.png",
+    "idle-5.png",
+    "idle-6.png",
+    "idle-7.png",
+    "idle-8.png"
+  ],
+  "jumping": [
+    "jumping-1.png",
+    "jumping-2.png",
+    "jumping-3.png",
+    "jumping-4.png",
+    "jumping-5.png",
+    "jumping-6.png",
+    "jumping-7.png"
+  ],
+  "running": [
+    "running-1.png",
+    "running-2.png",
+    "running-3.png",
+    "running-4.png",
+    "running-5.png",
+    "running-6.png"
+  ]
+}

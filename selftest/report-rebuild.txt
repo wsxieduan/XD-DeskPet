@@ -1,0 +1,5 @@
+抠图诊断: {'mode': 'matte', 'bg': [254, 254, 254], 'bg_uniform': 1.0, 'gaps_transparent': 65, 'holes_kept': 392, 'content': (2193, 1441), 'coverage': 0.33241785974109156}
+切出 3 个视图
+   view1  立绘 (551, 1436)  白边=0.000(带 3326 px)  动画画布 (123, 320)  帧数 {'idle': 8, 'jumping': 7, 'running': 6}
+   view2  立绘 (456, 1406)  白边=0.000(带 6945 px)  动画画布 (103, 320)  帧数 {'idle': 8, 'jumping': 7, 'running': 6}
+   view3  立绘 (529, 1416)  白边=0.000(带 2823 px)  动画画布 (119, 320)  帧数 {'idle': 8, 'jumping': 7, 'running': 6}

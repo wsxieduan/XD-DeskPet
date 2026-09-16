@@ -1,0 +1,3 @@
+idle-3.png                                           失败: AI 认为整张图都是背景，没找到角色
+idle-1.png                                           尺寸=(106, 198)  前景占比=0.485  用时 1.0s
+跳过（不存在）: D:\dsh\deskpet\assets\whale-girl\spritesheet.webp

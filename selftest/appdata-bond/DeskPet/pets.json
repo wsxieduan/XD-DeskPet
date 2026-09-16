@@ -1,0 +1,30 @@
+[
+  {
+    "id": "pet1",
+    "character": "nailong",
+    "x": 1387,
+    "y": 432,
+    "scale": 1.4,
+    "pid": null
+  },
+  {
+    "id": "pet2",
+    "character": "nailong",
+    "x": 528,
+    "y": 116,
+    "scale": 1.4,
+    "pid": null,
+    "createdAt": 1789467223,
+    "bond": "pet3"
+  },
+  {
+    "id": "pet3",
+    "character": "nailong",
+    "x": 524,
+    "y": 335,
+    "scale": 1.4,
+    "pid": null,
+    "createdAt": 1789467223,
+    "bond": "pet2"
+  }
+]

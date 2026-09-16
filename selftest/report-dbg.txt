@@ -1,0 +1,18 @@
+区域 (0, 506, 320, 1051)  差异像素 = 8081
+变化包围盒 = (0, 0, 320, 545)
+pet_running = True  pid = 12912
+Progman 子窗口:
+   SHELLDLL_DefView                   rect=(0, 0, 1707, 960)
+   WorkerW                            rect=(0, 0, 1707, 960)
+
+桌宠输出:
+
+deskpet.log:
+   ===== 启动 2026-09-14 19:00:30  父进程=28364  =====
+   layer: hwnd=855470 class=Qt6112QWindowIcon exstyle=0x8080080
+   
+   ===== 启动 2026-09-14 19:00:47  父进程=10384 C:\Users\Lenovo\miniconda3\python.exe =====
+   layer: hwnd=13305286 class=Qt6112QWindowIcon exstyle=0x8080080
+   
+   ===== 启动 2026-09-14 19:01:14  父进程=28800 C:\Users\Lenovo\miniconda3\python.exe =====
+   layer: hwnd=4129152 class=Qt6112QWindowIcon exstyle=0x8080080

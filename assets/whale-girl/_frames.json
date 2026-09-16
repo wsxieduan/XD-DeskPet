@@ -1,0 +1,77 @@
+{
+  "failed": [
+    "failed-1.png",
+    "failed-2.png",
+    "failed-3.png",
+    "failed-4.png",
+    "failed-5.png",
+    "failed-6.png",
+    "failed-7.png",
+    "failed-8.png"
+  ],
+  "idle": [
+    "idle-1.png",
+    "idle-2.png",
+    "idle-3.png",
+    "idle-4.png",
+    "idle-5.png",
+    "idle-6.png"
+  ],
+  "jumping": [
+    "jumping-1.png",
+    "jumping-2.png",
+    "jumping-3.png",
+    "jumping-4.png",
+    "jumping-5.png"
+  ],
+  "review": [
+    "review-1.png",
+    "review-2.png",
+    "review-3.png",
+    "review-4.png",
+    "review-5.png",
+    "review-6.png"
+  ],
+  "running": [
+    "running-1.png",
+    "running-2.png",
+    "running-3.png",
+    "running-4.png",
+    "running-5.png",
+    "running-6.png"
+  ],
+  "running-left": [
+    "running-left-1.png",
+    "running-left-2.png",
+    "running-left-3.png",
+    "running-left-4.png",
+    "running-left-5.png",
+    "running-left-6.png",
+    "running-left-7.png",
+    "running-left-8.png"
+  ],
+  "running-right": [
+    "running-right-1.png",
+    "running-right-2.png",
+    "running-right-3.png",
+    "running-right-4.png",
+    "running-right-5.png",
+    "running-right-6.png",
+    "running-right-7.png",
+    "running-right-8.png"
+  ],
+  "waiting": [
+    "waiting-1.png",
+    "waiting-2.png",
+    "waiting-3.png",
+    "waiting-4.png",
+    "waiting-5.png",
+    "waiting-6.png"
+  ],
+  "waving": [
+    "waving-1.png",
+    "waving-2.png",
+    "waving-3.png",
+    "waving-4.png"
+  ]
+}

@@ -1,0 +1,37 @@
+== 屏幕左边缘窗口归属（物理像素）==
+  0:SysListVi  20:SysListVi  40:SysListVi  60:SysListVi  80:SysListVi  100:SysListVi  120:SysListVi  140:SysListVi  160:SysListVi  180:SysListVi  200:SysListVi  220:SysListVi  240:SysListVi  260:SysListVi  280:SysListVi  300:SysListVi  320:SysListVi  340:SysListVi  360:Chrome_Re  380:Chrome_Re  400:Chrome_Re
+  第一个被应用窗口占据的 x = 360
+
+桌宠窗口(逻辑): 位置 (0, 430) 尺寸 (211, 266)
+截取区域(物理): (0, 641, 320, 1048)
+
+== A / A2 基线 ==
+  已取基线
+
+== B 置顶 + 无遮挡 ==
+  与 A 差异 = 14320
+
+== E 壁纸层 + 无遮挡 ==
+  log: attach: host=66026(Progman) IsChild=False ͼ���=66036 λ��=(0,430) �ߴ�=211x266
+  log: wallpaper attach: False hwnd parent = None
+  与 A 差异 = 279
+
+== C 壁纸层 + 遮挡 ==
+  与 A2 差异 = 0
+
+== F 壁纸层下的真实鼠标交互 ==
+  拖拽: (0, 430) -> (0, 430)  未生效
+  点击后画面变化像素 = 27 -> 无反馈
+
+== D 置顶 + 遮挡（反证）==
+  与 A2 差异 = 15307
+
+== 结论 ==
+  B  置顶   · 无遮挡  差异=14320  角色可见 ✓
+  E  壁纸层 · 无遮挡  差异=279    不可见 ✗
+  C  壁纸层 · 有遮挡  差异=0      角色消失 ✓（只在露出壁纸时可见）
+  D  置顶   · 有遮挡  差异=15307  角色仍可见 ✓（反证成立）
+  F  点击反馈        差异=27     无反馈 ✗
+  G  拖拽            未生效 ✗
+
+总判定: 有未通过项

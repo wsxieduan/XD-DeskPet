@@ -1,0 +1,21 @@
+== 模块级功能 ==
+  [OK]   扫描到形象列表  [('谢小端 · 视图1', 'oc/view1'), ('谢小端 · 视图2', 'oc/view2'), ('谢小端 · 视图3', 'oc/view3'), ('鲸鱼娘（原版）', 'whale-girl')]
+  [OK]   能找到谢小端三个视图
+  [OK]   可执行文件是 pythonw  C:\Users\Lenovo\miniconda3\pythonw.exe
+
+== 启停桌宠 ==
+  [OK]   初始状态为已关闭
+  [OK]   启动后检测到在运行  pid=23700
+  [OK]   关闭后检测到已停止
+
+== 开机自启开关 ==
+  [OK]   能创建自启快捷方式  C:\Users\Lenovo\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\deskpet.lnk
+  [OK]   能删除自启快捷方式
+
+== 控制台界面 ==
+  可见的 pythonw 窗口: 23900:桌宠控制台
+  [OK]   控制台窗口存在
+  已截图 selftest/ctl-screen.png
+  [OK]   第二个实例会自己退出（单实例生效）  returncode=0
+
+结果: 全部通过

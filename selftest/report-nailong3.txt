@@ -1,0 +1,12 @@
+=== 每帧的主色（看背景是不是稳定的）===
+  帧0    主色: (np.uint8(176), np.uint8(128), np.uint8(64)) 19%, (np.uint8(176), np.uint8(160), np.uint8(128)) 9%, (np.uint8(176), np.uint8(112), np.uint8(48)) 7%
+  帧30   主色: (np.uint8(112), np.uint8(192), np.uint8(224)) 12%, (np.uint8(224), np.uint8(192), np.uint8(96)) 6%, (np.uint8(144), np.uint8(208), np.uint8(224)) 5%
+  帧60   主色: (np.uint8(208), np.uint8(224), np.uint8(224)) 22%, (np.uint8(192), np.uint8(208), np.uint8(224)) 16%, (np.uint8(176), np.uint8(208), np.uint8(224)) 11%
+  帧90   主色: (np.uint8(208), np.uint8(224), np.uint8(224)) 10%, (np.uint8(176), np.uint8(112), np.uint8(32)) 7%, (np.uint8(240), np.uint8(240), np.uint8(224)) 6%
+  帧120  主色: (np.uint8(240), np.uint8(240), np.uint8(224)) 8%, (np.uint8(224), np.uint8(176), np.uint8(96)) 4%, (np.uint8(208), np.uint8(224), np.uint8(224)) 4%
+
+=== AI 抠图试第一帧 ===
+  AI 失败: AI 认为整张图都是背景，没找到角色
+
+=== 快速算法抠图试第一帧 ===
+  尺寸 (160, 160)  不透明占比 0.378  诊断 {'mode': 'matte', 'bg': [198, 156, 82], 'bg_uniform': 0.36041666666666666, 'gaps_transparent': 0, 'holes_kept': 2, 'content': (160, 160), 'coverage': 0.4578515625}

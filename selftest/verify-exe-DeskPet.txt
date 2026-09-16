@@ -1,0 +1,14 @@
+数据目录模式：%APPDATA%
+被测 exe：dist\DeskPet\DeskPet.exe
+  [OK]   控制台 --autostart 拉起了桌宠进程  pid=20008
+  [OK]   桌宠窗口出现  位置(30,450) 尺寸384x447
+   pets.json: [ { "id": "pet1", "character": "nailong", "x": 20, "y": 300, "scale": 1.6, "pid": null } ]
+  [OK]   不抢焦点 / 不上任务栏（NOACTIVATE+TOOLWINDOW）  exstyle=0x8080080
+  [OK]   贴壁纸层（不是置顶窗口）
+  [OK]   角色真的画在窗口里  与角点底色不同的采样点 15987（采样步长 3）
+  [OK]   动画在播放（源 GIF 30ms/帧）  150ms 内变化像素 92226
+  [OK]   点击弹出气泡  气泡区变化像素 12801
+  [OK]   能拖动  位移 144 像素 (30,450)->(120,504)
+  [OK]   关掉控制台能连桌宠一起收掉
+
+失败项：无

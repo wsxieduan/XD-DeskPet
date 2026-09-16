@@ -1,0 +1,13 @@
+全屏基线已取: (2560, 1440)
+
+=== 模式: topmost ===
+  与全屏基线的差异像素: 43677  变化区域: (0, 0, 2560, 1440)   (DPI 1.5, 期望物理位置约 (144, 780) )
+  变化区域换算成逻辑坐标: (0, 0, 1707, 960)
+  Progman 的子窗口: [('Qt6112QWindowToolSaveBits', (133, 333, 274, 574)), ('SHELLDLL_DefView', (0, 0, 1707, 960)), ('WorkerW', (0, 0, 1707, 960))]
+
+=== 模式: wallpaper ===
+  log: attach: host=66026(Progman) IsChild=False ͼ���=66036 λ��=(96,520) �ߴ�=211x266
+  log: wallpaper attach: False hwnd parent = None
+  与全屏基线的差异像素: 74055  变化区域: (0, 0, 2560, 1440)   (DPI 1.5, 期望物理位置约 (144, 780) )
+  变化区域换算成逻辑坐标: (0, 0, 1707, 960)
+  Progman 的子窗口: [('Qt6112QWindowToolSaveBits', (133, 333, 274, 574)), ('SHELLDLL_DefView', (0, 0, 1707, 960)), ('Qt6112QWindowToolSaveBits', (64, 347, 205, 524)), ('WorkerW', (0, 0, 1707, 960))]

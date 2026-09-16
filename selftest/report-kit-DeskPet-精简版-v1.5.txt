@@ -1,0 +1,15 @@
+解压到: D:\dsh\deskpet\selftest\kit-extract\DeskPet-精简版-v1.5
+  [OK]   解压出 DeskPet.exe  D:\dsh\deskpet\selftest\kit-extract\DeskPet-精简版-v1.5\DeskPet-精简版-v1.5\DeskPet\DeskPet.exe
+  [OK]   带了 _internal（不是光秃秃一个 exe）
+  [OK]   带了便携标记 portable.txt
+  [OK]   带了给朋友看的说明  ['先看我-试玩说明.txt']
+--selftest 退出码 0，用时 6.5s
+  [OK]   自检报告写在 exe 旁边的 data\（便携模式生效）  D:\dsh\deskpet\selftest\kit-extract\DeskPet-精简版-v1.5\DeskPet-精简版-v1.5\DeskPet\data\logs\selftest.json
+   characters=['nailong']  frozen=True
+  [OK]   打包后确实只有一个形象  ['nailong']
+  [OK]   是打包版（frozen=true）
+  [OK]   数据目录就在解压目录里  D:\dsh\deskpet\selftest\kit-extract\DeskPet-精简版-v1.5\DeskPet-精简版-v1.5\DeskPet\data
+  [OK]   快速算法抠图可用（精简版）  alpha 占比 0.568
+  [OK]   精简版确实没有 AI 链（符合预期）  ModuleNotFoundError("No module named 'rembg'")
+
+结果: 全部通过

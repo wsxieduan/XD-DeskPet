@@ -1,0 +1,9 @@
+﻿=== 鏈湴鐩戝惉鐨勪唬鐞嗙鍙?===
+  :::7897
+
+=== 鍑虹綉娴嬭瘯 ===
+  OK   https://pypi.org/simple/  200  317ms
+  OK   https://github.com  200  271ms
+  FAIL https://huggingface.co  操作超时。
+  OK   https://hf-mirror.com  200  241ms
+  FAIL https://objects.githubusercontent.com  远程服务器返回错误: (404) 未找到。

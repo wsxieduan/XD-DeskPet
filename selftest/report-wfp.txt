@@ -1,0 +1,11 @@
+桌宠 pid = 27352，运行中 = True
+点击位置(物理) = (158, 896)
+WindowFromPoint 返回: hwnd=19008088 class=Qt6112QWindowIcon 属于 pid=27352
+   -> 这个点上的点击会被 [Qt6112QWindowIcon] 收走
+
+该位置从下往上的窗口链:
+   Qt6112QWindowIcon pid=27352 rect=(0, 510, 317, 1053)
+
+Progman 的子窗口顺序（z 序，从高到低）:
+   SHELLDLL_DefView                   rect=(0, 0, 2560, 1440)
+   WorkerW                            rect=(0, 0, 2560, 1440)

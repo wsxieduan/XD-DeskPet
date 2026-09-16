@@ -1,0 +1,23 @@
+开始的桌宠窗口: {}
+
+== 1. 点「＋ 召唤一个桌宠」 ==
+pets.json: [{"id": "pet1", "character": "nailong", "x": 1387, "y": 432, "scale": 1.6, "pid": null}, {"id": "pet2", "character": "nailong", "x": 1207, "y": 472, "scale": 1.4, "pid": 27920, "createdAt": 1789467040}]
+桌宠窗口: {27920: 1}
+  [OK]   召唤后桌面上正好一只  {27920: 1}
+  [OK]   flee 默认是开（没写过时按默认值算开）  None
+
+== 2. 点「躲开鼠标」关掉它（模拟真实点击） ==
+  [OK]   点击前勾选状态是开  True
+  点击后立刻：勾选=False  config.flee=False  窗口={25056: 1}
+  3 秒后：勾选=False  config.flee=False  窗口={25056: 1}
+  [OK]   config 里真的写成了关  False
+  [OK]   勾选状态没有自己弹回去  False
+  [OK]   点开关没有多冒出一只桌宠  {25056: 1}
+
+== 3. 再打开它 ==
+  勾选=True  config.flee=True  窗口={21740: 1}
+  [OK]   重新打开也写进 config  True
+  [OK]   再次切换也没多冒出桌宠  {21740: 1}
+  [OK]   全部关闭后桌面干净  {}
+
+结果: 全部通过

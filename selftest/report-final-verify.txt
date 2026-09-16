@@ -1,0 +1,11 @@
+基线已取（DPI=1.5，区域=(0, 506, 320, 1051)）
+
+   桌宠进程 pid=30248
+   她的窗口: _q_titlebar rect=(0,0,317,56) 可见=False; Qt6112ThemeChangeObserverWindow rect=(228,228,2148,1225) 可见=False; Qt6112ScreenChangeObserverWindow rect=(190,190,2110,1187) 可见=False; Qt6112QWindowIcon rect=(0,510,317,1053) 可见=True; IME rect=(0,0,0,0) 可见=False
+
+  [OK]   裸露壁纸时看得见她  差异像素=26632
+  [OK]   被普通窗口盖住时完全消失  差异像素=0
+  [OK]   点击后弹出气泡台词  气泡区变化像素=11300
+  [OK]   拖拽改变位置并记住  (0, 340) -> (70, 312)
+
+结果: 全部通过
