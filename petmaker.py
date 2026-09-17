@@ -458,8 +458,12 @@ def clean_inner_background(cut: Image.Image, orig: Image.Image,
       1. tol 太大（30）—— 皮肤的色距约 20~40，被误判成背景。收到 14：
          真夹缝是背景直接透进来，色距通常小于 10。
       2. 面积上限防不住被纹理切碎的区域 —— 针织毛衣被切成一堆小块，每块都小于上限。
-         对策：先把候选区域膨胀 cluster_px 再聚类，整簇面积超限就整簇放弃。
-         真夹缝彼此离得远，膨胀后不会并成大块；纹理碎块会并成一大块而被否掉。
+         对策：先把候选区域膨胀 cluster_px 再聚类，看每个膨胀簇**吞掉了几个原始块**
+         —— 吞了 >=2 块说明是密集成片的碎块区，整簇放弃。
+         真夹缝彼此离得远，膨胀后各自仍是独立小块，不会被牵连。
+         （注意判据千万不能用"膨胀后的绝对面积"：膨胀是各向同性的，细长夹缝
+         的长宽一起被撑大，单条真夹缝的膨胀面积就会超过上限 —— 旧版踩过，
+         四个清理档位全部失效，见外部测试 BUG-2。）
       3. 判据里没有这是不是角色身上东西的概念。加一道细节存活率安全阀：
          统计清理会抹掉多少原图高频细节，超过 detail_guard 就降档重试，
          仍然超标就干脆不清。宁可留白边，也不能把角色啃了。
@@ -498,16 +502,27 @@ def clean_inner_background(cut: Image.Image, orig: Image.Image,
 
     if not cand.any():
         return cut
-    detail = _detail_map(o)
-    total_detail = max(1, int((detail & solid).sum()))
-
     # 逐级降档重试，任何一档的细节损失超标就往下退，全都不安全就不清。
+    # 安全阀分母（外部测试 BUG-2 第二处）：以前是全图实心区的细节量，而 kill 里的
+    # 像素都是颜色接近背景的平滑区、高频细节天然≈0，比值恒 <= guard ——
+    # 这道阀从来没真正起过作用。改成"候选区邻域一圈"的细节量：
+    # 描边、发丝根这些该保护的东西都在这里，清理真啃到它们时比值才会抬起来。
+    detail = _detail_map(o)
+    near = ndimage.binary_dilation(cand, iterations=8,
+                                   structure=np.ones((3, 3), dtype=int))
+    total_detail = max(1, int((detail & near).sum()))
     for ratio in (max_area_ratio, max_area_ratio * 0.4, max_area_ratio * 0.15):
         kill = _select_gaps(cand, d, tol=tol, flat=flat,
                             limit=ratio * float(solid.sum()), cluster_px=cluster_px)
         if not kill.any():
             continue
-        if int((detail & kill).sum()) / total_detail <= detail_guard:
+        # 分子用收缩 1px 后的 kill：贴着缝边的过渡行天生带高频梯度（那是背景
+        # 与角色的交界，清掉它天经地义 —— 实测硬边素材上这行能把比值顶到 ≈1，
+        # 把正确的清理整个拦死）。只有收缩后仍压在细节上的部分
+        #（= 真的清进角色体内了）才计入损失。kill 太细被腐蚀空时分子为 0，
+        # 直接视为无损，与本行注释同义。
+        inner = ndimage.binary_erosion(kill, iterations=1)
+        if int((detail & inner).sum()) / total_detail <= detail_guard:
             out = a.copy()
             out[..., 3] = np.where(kill, 0.0, alpha)
             return Image.fromarray(out.astype(np.uint8), "RGBA")
@@ -518,8 +533,18 @@ def _select_gaps(cand: np.ndarray, d: np.ndarray, tol: float, flat: float,
                  limit: float, cluster_px: int) -> np.ndarray:
     """从候选里挑真夹缝。
 
-    先用膨胀聚类否掉纹理碎块 —— 它们膨胀后会并成一大块、超过 limit，
-    而真夹缝彼此离得远，膨胀后仍然是独立小块。"""
+    膨胀聚类的本意（见 clean_inner_background docstring 第 2 条）：纹理碎块
+    密集成片，膨胀后会**并成一个大簇**；真夹缝彼此离得远，膨胀后仍是独立小块。
+    所以判据是"一个膨胀簇吞掉了几个原始块"—— 簇里 >=2 个块视为密集碎块区，
+    整簇放弃。一个原始块的像素 8 连通、膨胀后仍是自己的超集，
+    所以整块必然落在同一个膨胀簇里，每块取代表像素查簇号即可。
+
+    外部测试 BUG-2（阿酉已复核）：旧实现比的是**膨胀后的绝对面积**。
+    膨胀是各向同性的，一条 200x4 的细长真夹缝膨胀 12 次后 ≈224x28，
+    绝对面积轻松超过"角色面积的 4%"这条上限，于是所有真夹缝都被误判成
+    超限 —— 四个清理档位实际一条都清不掉（实测 kill 恒为 0）。
+    现在把两种量纲拆开：并簇数管"密不密集"，单块**膨胀前**面积管
+    "这条缝本身是不是大到不像夹缝"。"""
     lbl, n = ndimage.label(cand, structure=np.ones((3, 3), dtype=int))
     if n == 0:
         return np.zeros(cand.shape, dtype=bool)
@@ -527,9 +552,14 @@ def _select_gaps(cand: np.ndarray, d: np.ndarray, tol: float, flat: float,
     grown = ndimage.binary_dilation(cand, iterations=cluster_px,
                                     structure=np.ones((3, 3), dtype=int))
     glbl, gn = ndimage.label(grown, structure=np.ones((3, 3), dtype=int))
-    garea = ndimage.sum(grown, glbl, index=np.arange(1, gn + 1))
-    cluster_of = glbl[cand]
-    bad = set(np.where(garea > limit)[0] + 1)
+    # np.unique 对块号升序 + return_index 拿到每块第一个像素在 cand 序列里的位置；
+    # glbl[cand] 与 lbl[cand] 同为行序，因此该位置的簇号就是整块的簇号。
+    block_ids = lbl[cand]
+    cluster_ids = glbl[cand]
+    _, first_idx = np.unique(block_ids, return_index=True)
+    blk_cluster = cluster_ids[first_idx]                      # 每块 -> 膨胀簇号
+    cluster_block_count = np.bincount(blk_cluster, minlength=gn + 1)
+    block_dense = cluster_block_count[blk_cluster] >= 2       # 所在簇吞了 >=2 块 = 碎片区
 
     idx = np.arange(1, n + 1)
     areas = ndimage.sum(cand, lbl, index=idx)
@@ -538,7 +568,7 @@ def _select_gaps(cand: np.ndarray, d: np.ndarray, tol: float, flat: float,
 
     kill = np.zeros(cand.shape, dtype=bool)
     for i in range(n):
-        if areas[i] < 3 or cluster_of[i] in bad:
+        if areas[i] < 3 or areas[i] > limit or block_dense[i]:
             continue
         if mean_d[i] < tol and std_d[i] < flat:
             kill |= (lbl == i + 1)
@@ -559,7 +589,9 @@ def split_views(img: Image.Image, count: int = 3, min_area: int = 40, band: int 
     boxes = {}
     for k in range(1, n + 1):
         ys, xs = np.where(lbl == k)
-        boxes[k] = (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max()))
+        # 右下 +1：where 返回的 max 是**包含端点**的坐标，而 PIL crop 的右下是
+        # 开区间 —— 不 +1 的话每个 bbox 宽高都差 1 像素（外部测试 MINOR-1）。
+        boxes[k] = (int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1)
     anchors = sorted(sorted(range(1, n + 1), key=lambda k: -sizes[k - 1])[:count],
                      key=lambda k: boxes[k][0])
     out = []
@@ -574,8 +606,9 @@ def split_views(img: Image.Image, count: int = 3, min_area: int = 40, band: int 
                 m |= (lbl == k)
         ys, xs = np.where(m)
         pad = 6
-        out.append(img.crop((max(0, xs.min() - pad), max(0, ys.min() - pad),
-                             min(img.width, xs.max() + pad), min(img.height, ys.max() + pad))))
+        out.append(img.crop((max(0, int(xs.min()) - pad), max(0, int(ys.min()) - pad),
+                             min(img.width, int(xs.max()) + 1 + pad),
+                             min(img.height, int(ys.max()) + 1 + pad))))
     return out
 
 

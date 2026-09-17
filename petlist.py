@@ -46,7 +46,12 @@ def _lock(timeout: float = 3.0):
             break
         except OSError:
             if time.time() - t0 > timeout:
-                break                  # 实在拿不到也要往下走，不能把桌宠卡死
+                # 实在拿不到也要往下走，不能把桌宠卡死 —— 但必须留痕（外部测试 BUG-4）：
+                # 无锁读改写意味着极端并发下可能丢更新，没这行日志的话事后无从对证。
+                # 桌宠进程的 stdout 已重定向进 deskpet.log；控制台进程里 pythonw
+                # 模式下 print 静默跳过（不崩），开发模式直接可见。
+                print("[petlist] 等待 pets.lock 超时（%.1fs），本次无锁继续" % timeout, flush=True)
+                break
             time.sleep(0.02)
     try:
         yield

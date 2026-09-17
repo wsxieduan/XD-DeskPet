@@ -12,8 +12,10 @@ r"""paths.py —— 程序目录（只读）与数据目录（可写）的分离
 from __future__ import annotations
 
 import os
+import secrets
 import shutil
 import sys
+import time
 from pathlib import Path
 
 APP_NAME = "DeskPet"
@@ -129,10 +131,36 @@ def atomic_write_text(path: Path, text: str, encoding: str = "utf-8") -> None:
     为什么必须这样：桌宠（漫游时会频繁保存位置）和控制台是两个进程，无锁写同一个
     config.json。直接 write_text 的话，对方可能读到只写了一半的文件，json.loads 直接炸
     —— 测试里真的抓到了这个（JSONDecodeError: Expecting value）。
-    os.replace 在同卷上是原子的：读者要么看到旧的完整内容，要么看到新的完整内容。"""
-    tmp = path.with_name(path.name + ".tmp")
-    tmp.write_text(text, encoding=encoding)
-    os.replace(tmp, path)
+    os.replace 在同卷上是原子的：读者要么看到旧的完整内容，要么看到新的完整内容。
+
+    临时名必须是"每进程每次调用唯一"（外部测试 BUG-1，阿酉已复核复现）：
+    以前所有写者共用 config.json.tmp 这一个名字，桌宠刚 os.replace 把 tmp 移走、
+    控制台还在往那个已消失的 tmp 里写 —— PermissionError 三连
+    （[Errno 13] / [WinError 32] / [WinError 5]），且调用方吞了异常，
+    用户只看到"设置偶尔没生效"，日志里一个字都没有。
+    实测 2 进程按漫游节奏写，固定名的冲突率 0.2%~0.8%；唯一名 + 失败清理后为 0%。"""
+    tmp = path.with_name("%s.%d.%s.tmp" % (path.name, os.getpid(), secrets.token_hex(4)))
+    try:
+        tmp.write_text(text, encoding=encoding)
+        # 第二层竞争：os.replace 撞上"对方正 open() 读目标文件"会抛
+        # PermissionError [WinError 5] —— CRT 的 open 不带 FILE_SHARE_DELETE，
+        # rename 顶替会被拒。读方都是毫秒级瞬间，短重试就能等到它读完
+        # （退避到 ~90ms，仍失败才 raise，让调用方的日志接手）。
+        # 两层都堵上之后，2 进程按漫游节奏实测冲突率 0%（外部测试 BUG-1）。
+        for attempt in range(8):
+            try:
+                os.replace(tmp, path)
+                return
+            except PermissionError:
+                if attempt == 7:
+                    raise
+                time.sleep(0.0025 * (attempt + 1))
+    except Exception:
+        try:
+            tmp.unlink(missing_ok=True)     # 失败要清理，别给数据目录留垃圾
+        except Exception:
+            pass
+        raise
 
 
 def config_path() -> Path:

@@ -221,9 +221,39 @@ def load_cfg() -> dict:
     return data
 
 
+def ui_sleep(seconds: float) -> None:
+    """GUI 线程里的等待：让窗口保持"活着"（能重绘、能拖动、能点别的）。
+
+    外部测试 BUG-3：apply()/on_add_pet()/show_pet() 等槽函数里直接 time.sleep，
+    最坏 5s+ 整个控制台冻结、标题栏挂"未响应"。上传流水线线程化过，
+    这批是同类残留 —— 但这些等待天然是串行步骤（停了才能再启），
+    全面异步化改动太大，所以取最小修复：等待期间周期性 processEvents。
+    只在 Qt 事件循环里才有意义；CLI 模式（无 QApplication）退回普通 sleep。"""
+    app = QApplication.instance()
+    if app is None:
+        time.sleep(seconds)
+        return
+    end = time.time() + seconds
+    while time.time() < end:
+        app.processEvents()
+        time.sleep(0.02)
+
+
 def save_cfg(cfg: dict) -> None:
-    # 原子写：桌宠同时也在写这个文件，非原子写会让对方读到半截 JSON
-    paths.atomic_write_text(CONFIG, json.dumps(cfg, indent=2, ensure_ascii=False))
+    # 原子写：桌宠同时也在写这个文件，非原子写会让对方读到半截 JSON。
+    # 写失败必须留痕（外部测试 BUG-1/BUG-5）：异常冒给 Qt 槽的话，
+    # pythonw 下 stderr 是 None，一个字都不会留下，用户只看到"没生效"。
+    try:
+        paths.atomic_write_text(CONFIG, json.dumps(cfg, indent=2, ensure_ascii=False))
+    except Exception as e:
+        try:
+            d = BASE / "logs"
+            d.mkdir(exist_ok=True)
+            with open(d / "ctl.log", "a", encoding="utf-8") as f:
+                f.write(time.strftime("%H:%M:%S") + "  [save_cfg] 写 config.json 失败: %r\n" % (e,))
+        except Exception:
+            pass
+        raise
     _CFG_CACHE["mtime"] = None      # 让本进程的缓存失效
 
 
@@ -391,7 +421,7 @@ def stop_pet(pet_id: str | None = None) -> None:
         for _ in range(30):              # 等她真的退干净再返回，不然紧接着 start 会撞车
             if not pid_alive(pid):
                 break
-            time.sleep(0.05)
+            ui_sleep(0.05)
     try:
         PIDFILE.unlink()
     except Exception:
@@ -1530,7 +1560,7 @@ class Console(QWidget):
         self.act_show = QAction("召唤所有桌宠", self)
         self.act_show.triggered.connect(lambda: (start_all_pets(), time.sleep(0.6), self.refresh()))
         self.act_hide = QAction("关闭所有桌宠", self)
-        self.act_hide.triggered.connect(lambda: (stop_all_pets(), time.sleep(0.5), self.refresh()))
+        self.act_hide.triggered.connect(lambda: (stop_all_pets(), ui_sleep(0.5), self.refresh()))
         a_console = QAction("打开控制台", self)
         a_console.triggered.connect(self.reveal)
         a_quit = QAction("退出控制台", self)
@@ -1827,7 +1857,7 @@ class Console(QWidget):
         if not pid:
             return
         stop_pet(pid) if pet_running(pid) else start_pet(pid)
-        time.sleep(0.4)
+        ui_sleep(0.4)
         self.refresh()
 
     def on_remove_pet(self):

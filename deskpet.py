@@ -416,8 +416,10 @@ class DeskPet(QWidget):
             try:
                 petlist.update_pet(self.pet_id, character=self.character,
                                    x=self.x(), y=self.y(), scale=self.scale)
-            except Exception:
-                pass
+            except Exception as e:
+                # 写实例列表失败不能一声不吭（外部测试 BUG-5）：
+                # 症状是"控制台看不见这只"，没日志的话根本无从查起。
+                print("[save_cfg] update_pet 失败:", repr(e), flush=True)
         try:
             data = json.loads(CONFIG.read_text(encoding="utf-8"))
             if not isinstance(data, dict):
@@ -441,8 +443,11 @@ class DeskPet(QWidget):
                      }})
         try:
             paths.atomic_write_text(CONFIG, json.dumps(data, indent=2, ensure_ascii=False))
-        except Exception:
-            pass
+        except Exception as e:
+            # 配置写失败 = 用户这次的改动丢了（位置回退/设置没生效）。
+            # 以前 except: pass 完全静默（外部测试 BUG-1 的帮凶），
+            # 现在至少落一行进 deskpet.log，症状才查得回来。
+            print("[save_cfg] 写 config.json 失败:", repr(e), flush=True)
 
     def write_pid(self) -> None:
         """记下自己的 pid。
