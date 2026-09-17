@@ -38,3 +38,8 @@ selftest/*.png
 build_pyi/
 发布宣传/
 
+
+# ===== AI 协作过程档案与内部开发日志（仅本地留档，不公开）=====
+docs/
+README-开发日志.md
+
