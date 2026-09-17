@@ -1,35 +1,40 @@
-# ===== 构建产物（都是可以重新生成的，不上传）=====
+﻿# ===== 鏋勫缓浜х墿锛堥兘鏄彲浠ラ噸鏂扮敓鎴愮殑锛屼笉涓婁紶锛?====
 dist/
 dist-kit/
 build/
 build_stage*/
 *.spec.bak
 
-# ===== 发布 zip 与模型权重（太大，GitHub 单文件上限 100MB）=====
+# ===== 鍙戝竷 zip 涓庢ā鍨嬫潈閲嶏紙澶ぇ锛孏itHub 鍗曟枃浠朵笂闄?100MB锛?====
 *.zip
 models/
 
-# ===== 运行时数据（个人数据/日志，不上传）=====
+# ===== 杩愯鏃舵暟鎹紙涓汉鏁版嵁/鏃ュ織锛屼笉涓婁紶锛?====
 logs/
 pet.pid
 config.json
 
-# ===== Python 缓存 =====
+# ===== Python 缂撳瓨 =====
 __pycache__/
 *.pyc
 
-# ===== 临时文件 =====
+# ===== 涓存椂鏂囦欢 =====
 *.tmp
 ~$*
 
-# ===== selftest 过程截图（保留 report-*.txt 文本报告作为过程记录）=====
+# ===== selftest 杩囩▼鎴浘锛堜繚鐣?report-*.txt 鏂囨湰鎶ュ憡浣滀负杩囩▼璁板綍锛?====
 selftest/*.png
 selftest/kit-extract/
 
-# ===== 版权彩蛋素材（仅本机使用，绝不公开：奶龙/科比/奶龙笑声）=====
+# ===== 鐗堟潈褰╄泲绱犳潗锛堜粎鏈満浣跨敤锛岀粷涓嶅叕寮€锛氬ザ榫?绉戞瘮/濂堕緳绗戝０锛?====
 assets/nailong/
 assets/sounds/kobe-*.wav
 assets/sounds/nailong-*.wav
 
-# ===== selftest 过程截图（保留 report-*.txt 文本报告作为过程记录）=====
+# ===== selftest 杩囩▼鎴浘锛堜繚鐣?report-*.txt 鏂囨湰鎶ュ憡浣滀负杩囩▼璁板綍锛?====
 selftest/*.png
+
+# ===== 构建中间产物 / 本地求职与宣传物料（不公开）=====
+build_pyi/
+发布宣传/
+
