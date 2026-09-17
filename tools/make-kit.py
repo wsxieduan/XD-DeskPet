@@ -18,9 +18,15 @@ import io, os, shutil, sys, zipfile
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
-VER = "v1.6"
+VER = "v1.6.1"
 LITE = "--lite" in sys.argv
-SRC = BASE / "dist" / ("DeskPet-Lite" if LITE else "DeskPet")
+# --release：源用 tools/build.py --release 的产物名（dist/DeskPet-Release-Lite / DeskPet-Release-Full）；
+# 不带 --release 则沿用旧命名（dist/DeskPet-Lite / dist/DeskPet）
+RELEASE = "--release" in sys.argv
+if RELEASE:
+    SRC = BASE / "dist" / ("DeskPet-Release-Lite" if LITE else "DeskPet-Release-Full")
+else:
+    SRC = BASE / "dist" / ("DeskPet-Lite" if LITE else "DeskPet")
 KITNAME = "DeskPet-%s-%s" % ("精简版" if LITE else "完整版", VER)
 OUTDIR = BASE / "dist-kit"
 
@@ -76,7 +82,7 @@ SHORT_FULL = r"""桌宠 DeskPet 完整版 {VER} —— 先看我（30 秒上手�
 
 【三步开始】
 1) 把整个文件夹解压出来（别只拖 DeskPet.exe 出来，旁边的 _internal 要一起）。
-   解压后文件夹比较大（约 540MB），慢是正常的。
+   解压后文件夹比较大（约 560MB），慢是正常的。
 2) 双击 DeskPet.exe  →  出现的小窗口叫「桌宠控制台」。
 3) 点最下面蓝色的「＋ 召唤一个桌宠」。她会出现屏幕右侧。
    关掉控制台窗口 = 收进右下角托盘；双击托盘图标再打开。

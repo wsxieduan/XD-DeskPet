@@ -60,4 +60,4 @@ exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name='DeskPet',
           console=False, disable_windowed_traceback=False,
           icon=r'D:\dsh\deskpet\assets\icon.ico')
 
-coll = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name='DeskPet')
+coll = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name='DeskPet-Release-Full')
